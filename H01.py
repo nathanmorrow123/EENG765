@@ -1,3 +1,6 @@
+#Nathan Morrow 
+#AFIT EENG 765
+#Dr. David Woodburn
 import numpy as np
 import matplotlib.pyplot as plt
 def store(M, filename):
@@ -35,6 +38,7 @@ plt.plot(t*1000, x_t.T)
 plt.xlabel('Time, $t$ (ms)')
 plt.ylabel('State values')
 plt.legend(('Current Through Inductor(A)', 'Capicitor Voltage (V)'))
+plt.savefig('Voltages.png')
 # Plot resitor and capicitor currents together over time
 iR_t = np.zeros(K)
 iC_t = np.zeros(K)
@@ -48,10 +52,18 @@ plt.plot(t*1000,iR_t,iC_t)
 plt.xlabel('Time, $t$ (ms)')
 plt.ylabel('State values')
 plt.legend(('Current Through Resistor(A)', 'Current Through Capicitor (A)'))
+plt.savefig('Currents.png')
 # Plot the impedance of the resistor in parallel with the capacitor over time,
+zR_t = np.zeros(K)
+for k in range(K):
+    iL = x_t[0,k]
+    vC = x_t[1,k]
+    zR_t[k]= vC/iL
 plt.figure()
-plt.plot(t*1000, x_t.T)
+plt.plot(t*1000, zR_t)
 plt.xlabel('Time, $t$ (ms)')
 plt.ylabel('State values')
-plt.legend(('Impedance of Resistor(Ohms)'))
+plt.legend(('Resistor Impendence over time(Ohms)',))
+
+plt.savefig('Resistance.png')
 plt.show()
